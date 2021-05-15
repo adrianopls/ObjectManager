@@ -1,7 +1,7 @@
 
 from collections import OrderedDict
 
-from classes.GenericManager.generic_object import GenericObject
+from classes.gm.generic_object import GenericObject
 
 
 class OMBaseObject(GenericObject):

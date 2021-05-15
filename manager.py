@@ -5,21 +5,19 @@ Manager
 This file defines `ObjectManager`.
 """
 
-from collections import OrderedDict
-import numpy as np
+import logging
+import copy
 import zipfile
 import os
-
 import tempfile
 import shutil
+from collections import OrderedDict
 
-from app import app_utils
+import numpy as np
+
+from classes.gm.generic_manager import GenericManager
 
 
-from app import log
-from classes.GenericManager.generic_manager import GenericManager
-
-import copy
 
 
 try:
@@ -427,9 +425,9 @@ class ObjectManager(GenericManager):
         class_full_name = str(obj_type_class.__module__) + '.' + str(obj_type_class.__name__)
         if parent_type_class:
             parent_full_name = str(parent_type_class.__module__) + '.' + str(parent_type_class.__name__)
-            log.info('ObjectManager registered class {} for parent class {} successfully.'.format(class_full_name, parent_full_name))
+            logging.debug('ObjectManager registered class {} for parent class {} successfully.'.format(class_full_name, parent_full_name))
         else:    
-            log.info('ObjectManager registered class {} successfully.'.format(class_full_name))
+            logging.debug('ObjectManager registered class {} successfully.'.format(class_full_name))
         return True        
 
 
