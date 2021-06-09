@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 """
 DataObject is an "ObjectManager object" [sic] with a Numpy array.
 """
@@ -8,8 +8,8 @@ from collections import OrderedDict
 import numpy as np
 import wx
 
-from classes.om import OMBaseObject
-from classes.om import ObjectManager
+from .object import OMBaseObject
+from .manager import ObjectManager
 
 
 VALID_INDEXES = {
