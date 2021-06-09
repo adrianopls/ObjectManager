@@ -233,15 +233,17 @@ class ObjectManager(GenericManager):
                 self._childrenuidmap[parentuid].append(obj.uid)  
         
         except Exception as e:
-            print ('ERROR in adding object [ObjectManager.add]:', obj.uid, e, type(e))
+            logging.exception('ERROR in adding object [ObjectManager.add]')
             raise
             
         # Sending message  
         try:
             self.send_message('add', objuid=obj.uid)
         except Exception as e:
-            print ('ERROR in dealing with object creation [ObjectManager.add]:', obj.uid, e)
-            return False
+            #print ('ERROR in dealing with object creation [ObjectManager.add]:', obj.uid, e)
+            logging.exception('ERROR in dealing with object creation [ObjectManager.add]')
+            raise
+            #return False
 
         # TODO: Rever isso: UI.mvc_classes.track_object@DataMask 
         try:
@@ -251,6 +253,7 @@ class ObjectManager(GenericManager):
         
         if not ObjectManager._on_load and not nsc:
             ObjectManager._changed  = True       
+            
         return True
 
 
