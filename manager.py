@@ -284,13 +284,13 @@ class ObjectManager(GenericManager):
         """
 #        print ('\n\nOM.get:', uid, type(uid))
         if isinstance(uid, str):
-            uid = app_utils.parse_string_to_uid(uid)
+            uid = GenericManager.parse_string_to_uid(uid)
         try:    
 #            print ('OM.get [2]:', uid, type(uid))
 #            print (self._data)
             obj = self._data[uid]
             return obj
-        except Exception as e:
+        except:
 #            print ('ERROR OM.get:', uid, e)
             raise
         
@@ -384,22 +384,22 @@ class ObjectManager(GenericManager):
             tid = obj_type_class.tid
         except AttributeError:
             msg = "Type indentifier (tid) not found for class: {}.".format(obj_type_class)
-            log.exception(msg)
+            logging.exception(msg)
             return False
         if not tid:
             msg = "Wrong tid for class: {}.".format(obj_type_class)
-            log.error(msg)  
+            logging.error(msg)  
             return False
         if parent_type_class:
             try:    
                 parent_tid = parent_type_class.tid
             except AttributeError:
                 msg = "Type indentifier (tid) not found for parent type class: {}.".format(obj_type_class)
-                log.exception(msg)
+                logging.exception(msg)
                 return False
             if not parent_tid:
                 msg = "Wrong tid for parent type class: {}.".format(parent_type_class)
-                log.error(msg)  
+                logging.error(msg)  
                 return False
         # parent_type_class validation 
         if parent_tid:
@@ -407,12 +407,12 @@ class ObjectManager(GenericManager):
                 msg = "Parent type Class {} must be registered before accept children types.".format(\
                              obj_type_class.__name__, parent_type_class.__name__
                 )
-                log.error(msg)   
+                logging.error(msg)   
                 return False
             if cls._parenttidmap.get(tid) and parent_tid in cls._parenttidmap.get(tid):
                 msg = "Class {} was registered previously for parent type class {}.".format(\
                              obj_type_class.__name__, parent_type_class.__name__)
-                log.error(msg) 
+                logging.error(msg) 
                 return False
         # Actual registering...
         if tid not in cls._types.keys():
